@@ -1,6 +1,6 @@
 import React from "react"
 
-const Form = ({setInputText}) => {
+const Form = ({setInputText, todos, setTodos, inputText, setStatus}) => {
     // write js function and code
     const inputTextHandler = (e) => {
         console.log(e.target.value);
@@ -8,16 +8,23 @@ const Form = ({setInputText}) => {
     };
     const submitTodoHandler = (e) => {
         e.preventDefault();
+        setTodos([
+            ...todos, {text: inputText, completed: false, id: Math.random() * 1000 }
+        ]);
+        setInputText("");
     };
+    const statusHandler = (e) => {
+        setStatus(e.target.value)
+    }
     return ( <form>
-        <input onChange = { inputTextHandler }
+        <input value={inputText} onChange = { inputTextHandler }
         type = "text"
         className = "todo-input"/>
         <button onClick={submitTodoHandler} className = "todo-button"
         type = "submit">
         <i className = "fas fa-plus-square"> </i> </button> 
         <div className = "select" >
-        <select name = "todos"
+        <select onChange={statusHandler} name = "todos"
         className = "filter-todo" >
         <option value = "all" > All </option> 
         <option value = "completed" > Completed </option> 
@@ -28,3 +35,5 @@ const Form = ({setInputText}) => {
 }
 
 export default Form;
+
+// 31:34
